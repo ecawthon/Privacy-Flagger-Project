@@ -4,12 +4,12 @@ chrome.runtime.onMessage.addListener(function (msg, sender, sendResponse) {
         var url = activeTab.url;
         if (msg.action === "updateIcon" && url.includes('discord')) {
             chrome.browserAction.setIcon({
-                path: {"128": "/img/icon128.png"}
+                path: "/img/green.png"
             });
         }
         if (msg.action === "updateIcon" && url.includes('reddit')) {
             chrome.browserAction.setIcon({
-                path: "/img/tiger.png" 
+                path: "/img/gray.png" 
             });
         }
     });

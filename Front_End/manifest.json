@@ -10,7 +10,7 @@
   },
 
   "browser_action": {
-    "default_icon": "/img/yellow.png",
+    "default_icon": "/img/gray.png",
     "default_popup": "content.html"
   },
 
