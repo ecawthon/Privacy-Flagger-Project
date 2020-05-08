@@ -1,5 +1,5 @@
 CREATE TABLE policies (
-    url VARCHAR(1000) NOT NULL UNIQUE,
+    url VARCHAR(100) NOT NULL PRIMARY KEY,
     rating VARCHAR(10) NOT NULL,
     subgroup_id INT NOT NULL,
     last_fetch_date DATE NOT NULL
