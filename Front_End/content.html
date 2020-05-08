@@ -1,15 +1,43 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-    <title>URLCount</title>
+    <title>PG</title>
+    <link rel="stylesheet" href="popup.css">
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
     <script src="jquery-3.4.1.min.js"></script>
-</head>
-
-<body>
     <script src="content.js"></script>
     <script src="popup.js"></script>
-    <img id="rank">
+    <style>
+        body { /*Round edges*/
+            width: 344px;
+            height: 458.55px;
+            margin: 0;
+            background-color: rgba(0,0,0,0.0);
+            font-family: "Roboto";
+        }
+    </style>
+</head>
+<body>
+    <div class="header-background">
+        <h1 class="pg-header">Privacy Guardian</h1>
+        <h1 id="url" class="link"></h1>
+        <img id="icon" class="icon"> 
+    </div>
+    <div class="background">
+        <h1 class="worse" id="worse"></h1>
+        <h1 class="moderate" id="moderate"></h1>
+        <h1 class="better" id="better"></h1>
+        <div class="red-bar"></div>
+        <div class="green-bar"></div>
+        <div class="yellow-bar"></div>
+        <div id="dot"></div>
+        <div id="line"></div>
+        <div class="split-line-1"></div>
+        <div class="split-line-2"></div>
+        <h1 class="limitations">Limitations</h1>
+        <h1 class="limitations-bulk">Our service tracks the privacy policies to the best of its ability, but even with smart technology privacy policies can hide information. What we might not be able to predict is if your personal information will be kept private from all other parties than yourself.</h1>
+        <h1 class="text-css" id="text"></h1>
+    </div>
 </body>
-
 </html>
