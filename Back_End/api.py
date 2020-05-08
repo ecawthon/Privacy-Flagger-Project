@@ -57,7 +57,6 @@ def get_policies():
 def get_policy(url):
     sql = f"SELECT url, rating, subgroup_id, last_fetch_date FROM policies WHERE url = (%s);"
     query_response = execute_query(sql, (url,))
-    print(url)
 
     if len(query_response) == 0:
         return no_policy_message()
@@ -85,8 +84,6 @@ def create_policy_object():
 
         sql = f"INSERT INTO policies (url, rating, subgroup_id, last_fetch_date) VALUES (%s, %s, %s, %s);"
         execute_query(sql, (url, rating, subgroup_id, last_fetch_date))
-
-        print(data)
 
         return json.dumps({"url": url}), 201
 
