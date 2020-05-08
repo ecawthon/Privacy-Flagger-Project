@@ -152,6 +152,8 @@ Nothing.
 {"url": "facebook.com", "rating": "medium", "subgroup_id": 10, "last_fetch_date": "2020-04-29"}
 ```
 
+(You can include one, two, or all three of 'rating', 'subgroup_id', or 'last_fetch_date' and only those will be altered.)
+
 #### Output:
 
 ###### Body
