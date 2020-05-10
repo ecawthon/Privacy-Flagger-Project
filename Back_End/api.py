@@ -1,6 +1,7 @@
 from flask import Flask, request
 import json
 import MySQLdb
+#import urllib
 
 app = Flask(__name__)
 cursor = None
@@ -34,7 +35,7 @@ def no_policy_message():
 
 @app.route('/policy', methods = ['GET'])
 def get_policies():
-    data = request.get_json()
+    data = request.args.get("url")
 
     if not data:
         sql = "SELECT url, rating, subgroup_id, last_fetch_date FROM policies;"
@@ -52,7 +53,7 @@ def get_policies():
 
         return json.dumps({"policies": policy_list}), 200
     else:
-        return get_policy(data.get("url"))
+        return get_policy(data)
 
 def get_policy(url):
     sql = f"SELECT url, rating, subgroup_id, last_fetch_date FROM policies WHERE url = (%s);"

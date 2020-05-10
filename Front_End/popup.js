@@ -1,23 +1,28 @@
 $(function () {
     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-        /* 
-        What needs to be changes here is: 
-        - Use the URL/domain as the key for the API get 
-          function to get the grade from the database. 
-        - Then use the grading getted from the database in 
-          the if-statement so that the right bulk of code 
-          is triggered for the right grad. Right now it’s 
-          hard coded with the lists w, m, b - this should 
+        /*
+        What needs to be changes here is:
+        - Use the URL/domain as the key for the API get
+          function to get the grade from the database.
+        - Then use the grading getted from the database in
+          the if-statement so that the right bulk of code
+          is triggered for the right grad. Right now it’s
+          hard coded with the lists w, m, b - this should
           replaced with the grad from the database.
+
+          const http = new XMLHttpRequest();
+          const policy_url =  "facebook.com";
+          const request_url = "http://localhost:5000/policy?url=" + policy_url;
+          http.open("GET", request_url, true);
+
+          http.onreadystatechange = function () {
+              if (this.readyState == 4 && this.status == 200) {
+                  console.log(http.responseText)
+              }
+          }
+
+          http.send();
         */
-        const Http = new XMLHttpRequest();
-        Http.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
-                console.log(Http.responseText)
-            }
-        }
-        Http.open("GET", "http://localhost:5000/policy");
-        Http.send();
 
         var w = ["facebook"];
         var m = ["google"];
