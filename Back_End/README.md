@@ -251,4 +251,4 @@ Then, you delete everything in the `db_records` folder.
 
 And if you want to be very thorough, delete everything in your computer's recycling bin/trash can.
 
-You can now start again from beginning with the instructions on how to build and run the containers.
+You can now start again from the beginning with the instructions on how to build and run the containers.
