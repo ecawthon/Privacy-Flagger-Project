@@ -247,7 +247,7 @@ First, stop all running containers. You can do this by running these commands: `
 
 Next, you remove all Docker images, containers, networks etc. with the command: `docker system prune` and choosing `'y'` when prompted.
 
-Then, you delete everything in the `/COMPSCI-299-Privacy-Flagger-Project/Back_End/db/db_records:/var/lib/mysql` folder.
+Then, you delete everything in the `db_records` folder.
 
 And if you want to be very thorough, delete everything in your computer's recycling bin/trash can.
 
