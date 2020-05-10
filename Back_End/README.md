@@ -68,11 +68,13 @@ Nothing.
 
 #### Input:
 
-###### Body
+###### URL parameter
 
 ```
-{"url": "facebook.com"}
+url = facebook.com
 ```
+
+(Passed like this through the URL http://localhost:5000/policy?url=facebook.com)
 
 #### Output:
 
