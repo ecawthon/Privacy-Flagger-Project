@@ -62,8 +62,10 @@ $(function () {
                     });
                     var obj = $('#text').text("Better because it:\n - Keeps your information private\n - Doesn't track your actions\n - Doesn't give you targeted ads");
                     obj.html(obj.html().replace(/\n/g, '<br/>'));
-
-                } 
+                }
+                $('#line').css({
+                    "visibility": "hidden"
+                });
             } else {
                 icon = "/img/blue.png";
                 $('#dot').css({
