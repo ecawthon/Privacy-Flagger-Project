@@ -10,25 +10,16 @@ Before anything else, you have to download Docker Desktop. You should be able to
 
 Once that's downloaded, please run the following commands on the command line to set up the necessary Docker containers and make sure to modify the file paths to point to the COMPSCI-299-Privacy-Flagger-Project folder on your local system.
 
-First, set up a Docker network. This allows Docker containers to communicate with each other.
+Run with
+`docker-compose up -d`
 
-`docker network create policy-network`
+This will
 
-Then, modify the file paths in the following command and run it to set up the MySQL database container. A 'policies' table will automatically be created using the create_table.sql file in the docker-entrypoint-initdb.d folder, if you want to modify the table before the database is initialised, then edit the create_table.sql file before you run the following command.
+* First, set up a Docker network. This allows Docker containers to communicate with each other.
 
-```
-docker run --name policy-mysql -e MYSQL_ROOT_PASSWORD=my-secret-pw -e MYSQL_DATABASE=policy-db -v MODYIFY/PATH/TO/SUIT/LOCAL/SYSTEM/COMPSCI-299-Privacy-Flagger-Project/Back_End/db/db_records:/var/lib/mysql -v MODYIFY/PATH/TO/SUIT/LOCAL/SYSTEM/COMPSCI-299-Privacy-Flagger-Project/Back_End/db/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d --network policy-network  -dit mysql:latest --default-authentication-plugin=mysql_native_password
-```
+* Then, set up the MySQL database container. A 'policies' table will automatically be created using the create_table.sql file in the docker-entrypoint-initdb.d folder, if you want to modify the table before the database is initialised, then edit the create_table.sql file before you run the following command.
 
-Last, modify the file paths in the following commands and set up the Flask app container:
-
-```
-docker build -t policy_backend_image MODYIFY/PATH/TO/SUIT/LOCAL/SYSTEM/COMPSCI-299-Privacy-Flagger-Project/Back_End
-```
-
-```
-docker run  -dit --name=policy-backend -e FLASK_APP=api.py -p 5000:5000 -v MODYIFY/PATH/TO/SUIT/LOCAL/SYSTEM/COMPSCI-299-Privacy-Flagger-Project/Back_End:/app --network policy-network policy_backend_image
-```
+* Last, set up the Flask app container:
 
 If you need to make code changes to the api.py file, then restart the Docker container using: `docker restart policy-backend` and code changes will be incorporated.
 

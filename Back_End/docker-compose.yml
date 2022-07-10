@@ -1,0 +1,40 @@
+version: "3"
+
+services:
+    policy-mysql:
+        image: "mysql:latest"
+        container_name: policy-mysql
+        command: mysqld -h 127.0.0.1 --default-authentication-plugin=mysql_native_password
+        restart: always
+        environment:
+            MYSQL_ROOT_PASSWORD: my-secret-pw
+            MYSQL_DATABASE: policy-db
+        volumes:
+            - ./db/db_records:/var/lib/mysql
+            - ./db/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+        networks:
+            policy-network:
+                aliases:
+                    - policy-mysql
+    policy-backend:
+        build: .
+        image: policy_backend_image
+        container_name: policy-backend
+        hostname: policy-backend
+        depends_on:
+            - policy-mysql
+        environment:
+            FLASK_APP: api.py
+        ports:
+            - "5000:5000"
+        volumes:
+            - .:/app
+        networks:
+            policy-network:
+                aliases:
+                    - policy-backend
+
+
+networks:
+    policy-network:
+        name: policy-network

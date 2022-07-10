@@ -1,1 +1,3 @@
-Back_end/db/db_records/*
+Back_end/db/db_records
+Back_end/__pycache__
+*~
