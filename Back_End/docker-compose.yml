@@ -4,7 +4,6 @@ services:
     policy-mysql:
         image: "mysql:latest"
         container_name: policy-mysql
-        hostname: policy-mysql
         command: mysqld -h 127.0.0.1 --default-authentication-plugin=mysql_native_password
         restart: always
         environment:

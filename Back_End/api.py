@@ -22,7 +22,7 @@ def execute_query(sql_query, param_list=None):
     return cursor.fetchall()
 
 def does_task_exist(url):
-    sql = f"SELECT url, rating, subgroup_id, last_fetch_date FROM policies WHERE url = (%s);"
+    sql = f"SELECT `Site URL`, Comments, `Policy URL`, `Policy collection date` FROM sites WHERE `Site URL` = (%s);"
     request_response = execute_query(sql, (url,))
 
     if len(request_response) == 0:
@@ -38,17 +38,17 @@ def get_policies():
     data = request.args.get("url")
 
     if not data:
-        sql = "SELECT url, rating, subgroup_id, last_fetch_date FROM policies;"
+        sql = f"SELECT `Site URL`, Comments, `Policy URL`, `Policy collection date` FROM sites;"
         query_response = execute_query(sql)
 
         policy_list = list()
 
         for row in query_response:
             policy_list.append({
-                "url": row[0],
-                "rating": row[1],
-                "subgroup_id": row[2],
-                "last_fetch_date": str(row[3])
+                "`Site URL`": row[0],
+                "Comments": row[1],
+                "Policy URL": row[2],
+                "Policy collection date": str(row[3])
                 })
 
         return json.dumps({"policies": policy_list}), 200
@@ -56,17 +56,17 @@ def get_policies():
         return get_policy(data)
 
 def get_policy(url):
-    sql = f"SELECT url, rating, subgroup_id, last_fetch_date FROM policies WHERE url = (%s);"
+    sql = f"SELECT `Site URL`, Comments, `Policy URL`, `Policy collection date` FROM sites WHERE `Site URL` = (%s);"
     query_response = execute_query(sql, (url,))
 
     if len(query_response) == 0:
         return no_policy_message()
 
     response_msg = {
-        "url": query_response[0][0],
-        "rating": query_response[0][1],
-        "subgroup_id": query_response[0][2],
-        "last_fetch_date": str(query_response[0][3])
+        "`Site URL`": query_response[0][0],
+        "Comments": query_response[0][1],
+        "`Policy URL`": query_response[0][2],
+        "`Policy collection date`": str(query_response[0][3])
         }
 
     return json.dumps(response_msg), 200
@@ -75,59 +75,59 @@ def get_policy(url):
 def create_policy_object():
     data = request.get_json()
 
-    if "policies" in data:
+    if "sites" in data:
         return create_policy_objects(data)
     else:
-        url = data.get("url")
-        rating = data.get("rating")
-        subgroup_id = data.get("subgroup_id")
-        last_fetch_date = data.get("last_fetch_date")
+        url = data.get("`Site URL`")
+        comments = data.get("Comments")
+        policy_url = data.get("`Policy URL`")
+        last_fetch_date = data.get("`Policy collection date`")
 
-        sql = f"INSERT INTO policies (url, rating, subgroup_id, last_fetch_date) VALUES (%s, %s, %s, %s);"
-        execute_query(sql, (url, rating, subgroup_id, last_fetch_date))
+        sql = f"INSERT INTO sites (`Site URL`, Comments, `Policy URL`, `Policy collection date`) VALUES (%s, %s, %s, %s);"
+        execute_query(sql, (url, comments, policy_url, last_fetch_date))
 
-        return json.dumps({"url": url}), 201
+        return json.dumps({"Policy URL": url}), 201
 
 def create_policy_objects(data):
     policies_list = list()
 
-    for policy in data.get("policies"):
-        url = policy.get("url")
-        rating = policy.get("rating")
-        subgroup_id = policy.get("subgroup_id")
-        last_fetch_date = policy.get("last_fetch_date")
+    for policy in data.get("sites"):
+        url = policy.get("Policy URL")
+        rating = policy.get("Comments")
+        subgroup_id = policy.get("`Policy URL`")
+        last_fetch_date = policy.get("`Policy collection date`")
 
-        sql = f"INSERT INTO policies (url, rating, subgroup_id, last_fetch_date) VALUES (%s, %s, %s, %s);"
+        sql = f"INSERT INTO sites (`Site URL`, Comments, `Policy URL`, `Policy collection date`) VALUES (%s, %s, %s, %s);"
         execute_query(sql, (url, rating, subgroup_id, last_fetch_date))
 
-        policies_list.append({"url": url})
+        policies_list.append({"Policy URL": url})
 
-    return json.dumps({"policies": policies_list}), 201
+    return json.dumps({"sites": policies_list}), 201
 
 @app.route('/policy', methods = ['PUT'])
 def update_policy_object():
     data = request.get_json()
-    url = data.get("url")
+    url = data.get("Policy URL")
 
     if not does_task_exist(url):
         return no_policy_message()
 
     query_snippet = ""
-    if "rating" in data:
-        rating = data.get("rating")
-        query_snippet = f"rating = '{rating}'"
-    if "rating" in data and "subgroup_id" in data:
+    if "Comments" in data:
+        comments = data.get("Comments")
+        query_snippet = f"Comments = '{comments}'"
+    if "Comments" in data and "Policy URL" in data:
         query_snippet += ", "
-    if "subgroup_id" in data:
-        subgroup_id = data.get("subgroup_id")
-        query_snippet += f"subgroup_id = {subgroup_id}"
-    if ("subgroup_id" in data and "last_fetch_date" in data) or ("rating" in data and "last_fetch_date" in data):
+    if "Policy URL" in data:
+        policy_url = data.get("Policy URL")
+        query_snippet += f"Policy URL = {policy_url}"
+    if ("`Policy URL`" in data and "`Policy collection date`" in data) or ("Comments" in data and "`Policy collection date`" in data):
         query_snippet += ", "
-    if "last_fetch_date" in data:
-        last_fetch_date = data.get("last_fetch_date")
-        query_snippet += f"last_fetch_date = '{last_fetch_date}'"
+    if "`Policy collection date`" in data:
+        last_fetch_date = data.get("`Policy collection date`")
+        query_snippet += f"`Policy collection date` = '{last_fetch_date}'"
 
-    sql = f"UPDATE policies SET {query_snippet} WHERE url = (%s);"
+    sql = f"UPDATE sites SET {query_snippet} WHERE `Site URL` = (%s);"
     execute_query(sql, (url,))
 
     return '', 204
@@ -136,22 +136,22 @@ def update_policy_object():
 def delete_policy_object():
     data = request.get_json()
 
-    if "policies" in data:
+    if "sites" in data:
         return delete_policy_objects(data)
     else:
-        url = data.get("url")
+        url = data.get("`Site URL`")
 
-        sql = f"DELETE FROM policies WHERE url = (%s);"
+        sql = f"DELETE FROM sites WHERE `Site URL` = (%s);"
         execute_query(sql, (url,))
 
         return '', 204
 
 def delete_policy_objects(data):
     data = request.get_json()
-    tasks_to_delete = [item.get("url") for item in data.get("policies")]
+    tasks_to_delete = [item.get("`Site URL`") for item in data.get("sites")]
 
     for url in tasks_to_delete:
-        sql = f"DELETE FROM policies WHERE url = (%s);"
+        sql = f"DELETE FROM sites WHERE `Site URL` = (%s);"
         execute_query(sql, (url,))
 
     return '', 204
@@ -159,7 +159,7 @@ def delete_policy_objects(data):
 #This function should be removed in a live application
 @app.route('/reset', methods = ['PUT'])
 def reset_table():
-    execute_query("DELETE FROM policies;")
-    execute_query("ALTER TABLE policies AUTO_INCREMENT = 1;")
+    execute_query("DELETE FROM sites;")
+    execute_query("ALTER TABLE sites AUTO_INCREMENT = 1;")
 
     return '', 204
