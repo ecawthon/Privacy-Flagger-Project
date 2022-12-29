@@ -86,7 +86,9 @@ $(function () {
                     "background": "#2d9cdb",
                     "border-radius": "10px"
                 });
-                var obj = $('#text').text("\nCategorized as unknown because we don't have enough data to categorize it.");
+                // var obj = $('#text').text("\nCategorized as unknown because we don't have enough data to categorize it.");
+                var obj = $('#text')
+                    .text("Comments: " + rating);
                 obj.html(obj.html().replace(/\n/g, '<br/>'));
             }
             $('#url').text(url);
