@@ -62,6 +62,30 @@ $(function () {
                     });
                     var obj = $('#text').text("Better because it:\n - Keeps your information private\n - Doesn't track your actions\n - Doesn't give you targeted ads");
                     obj.html(obj.html().replace(/\n/g, '<br/>'));
+                } else { // this is the default case since we're not doing ratings
+                    icon = "/img/blue.png";
+                    $('#dot').css({
+                        "position": "absolute",
+                        "width": "7px",
+                        "height": "7px",
+                        "left": "168px",
+                        "top": "124px",
+                        "background": "#2d9cdb",
+                        "border-radius": "50%"
+                    });
+                    table = "<div class='table'><table>"+
+                        "<tr><td><b> Annotation type</b></td><td><b>Count</b></td></tr>";
+                    data = JSON.parse(http.responseText)
+                    for (let category in data) {
+                        value = data[category];
+                        console.log(category+": ", value)
+                        table = table.concat("<tr><td>", category, "</td><td>", value, "</td></tr>");
+                    }
+                    table = table.concat("</table></div>");
+                    console.log(table);
+                    var obj = $('#text')
+                        .html(table);
+                        // .text("Comments: " + rating);
                 }
                 $('#line').css({
                     "visibility": "hidden"
@@ -86,9 +110,7 @@ $(function () {
                     "background": "#2d9cdb",
                     "border-radius": "10px"
                 });
-                // var obj = $('#text').text("\nCategorized as unknown because we don't have enough data to categorize it.");
-                var obj = $('#text')
-                    .text("Comments: " + rating);
+                var obj = $('#text').text("\nThis site isn't part of our database.");
                 obj.html(obj.html().replace(/\n/g, '<br/>'));
             }
             $('#url').text(url);

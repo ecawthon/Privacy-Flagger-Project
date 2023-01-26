@@ -56,18 +56,23 @@ def get_policies():
         return get_policy(data)
 
 def get_policy(url):
-    sql = f"SELECT `Site URL`, Comments, `Policy URL`, `Policy collection date` FROM sites WHERE `Site URL` = (%s);"
+    # sql = f"SELECT `Site URL`, Comments, `Policy URL`, `Policy collection date` FROM sites WHERE `Site URL` = (%s);"
+    sql = f"SELECT category_name, COUNT(*) `Policy collection date` FROM annotations WHERE INSTR(policy_url, (%s)) GROUP BY category_name;"
     query_response = execute_query(sql, (url,))
 
     if len(query_response) == 0:
         return no_policy_message()
 
-    response_msg = {
-        "`Site URL`": query_response[0][0],
-        "Comments": query_response[0][1],
-        "`Policy URL`": query_response[0][2],
-        "`Policy collection date`": str(query_response[0][3])
-        }
+    # response_msg = {
+    #     "`Site URL`": query_response[0][0],
+    #     "Comments": query_response[0][1],
+    #     "`Policy URL`": query_response[0][2],
+    #     "`Policy collection date`": str(query_response[0][3])
+    #     }
+    response_msg = {}
+    for row in query_response:
+        response_msg[row[0]] = row[1]
+    print(response_msg)
 
     return json.dumps(response_msg), 200
 

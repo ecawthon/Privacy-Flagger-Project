@@ -2,50 +2,51 @@
    width: 344px;
    height: 72px;
    background: linear-gradient(0deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.08)), #121212;
-   
+
    box-shadow: 0px 1px 8px rgba(0, 0, 0, 0.2), 0px 3px 3px rgba(0, 0, 0, 0.12), 0px 3px 4px rgba(0, 0, 0, 0.14);
    /*border-radius: 4px;*/
   }
- 
+
   .background {
    width: 344px;
-   height: 458.55px;
-   
-   background: linear-gradient(0deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.05)), #121212; 
-   
+   /* height: 458.55px; */
+   height: 700px;
+
+   background: linear-gradient(0deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.05)), #121212;
+
    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.2), 0px 2px 1px rgba(0, 0, 0, 0.12), 0px 1px 1px rgba(0, 0, 0, 0.14);
    /*border-radius: 4px;*/
   }
- 
+
   .pg-header {
    position: absolute;
    width: 154px;
    height: 24px;
    left: 72px;
    top: 1px;
- 
+
    font-weight: 500;
    font-size: 20px;
    line-height: 24px;
-   
+
    letter-spacing: 0.15px;
-   
+
    color: rgba(255, 255, 255, 0.87);
   }
- 
+
   .link {
    position: absolute;
    width: 77px;
    height: 20px;
    left: 72px;
    top: 29px;
- 
+
    font-weight: normal;
    font-size: 14px;
    line-height: 20px;
-   
+
    letter-spacing: 0.25px;
-   
+
    color: rgba(255, 255, 255, 0.87);
   }
 
@@ -107,7 +108,7 @@
    left: 32px;
    top: 127px;
 
-   
+
    background: #EB5757;
    border-radius: 10px;
   }
@@ -119,7 +120,7 @@
    left: 125px;
    top: 127px;
 
-   
+
    background: #f2c94c;
   }
 
@@ -130,7 +131,7 @@
    left: 217px;
    top: 127px;
 
-   
+
    background: #219653;
    border-radius: 10px;
   }
@@ -149,7 +150,7 @@
    width: 344px;
    left: 0px;
    top: 150px;
-   
+
    background: #FFFFFF;
    mix-blend-mode: normal;
    opacity: 0.12;
@@ -160,8 +161,8 @@
    height: 1px;
    width: 344px;
    left: 0px;
-   top: 300px;
-   
+   top: 500px;
+
    background: #FFFFFF;
    mix-blend-mode: normal;
    opacity: 0.12;
@@ -172,14 +173,14 @@
    width: 279px;
    height: 132px;
    left: 32px;
-   top: 320px;
-   
+   top: 520px;
+
    font-family: Montserrat;
    font-style: normal;
    font-weight: normal;
    font-size: 14px;
    line-height: 146.7%;
-   
+
    color: rgba(255, 255, 255, 0.6);
   }
 
@@ -188,14 +189,14 @@
    width: 279px;
    height: 132px;
    left: 32px;
-   top: 340px;
-   
+   top: 540px;
+
    font-family: Montserrat;
    font-style: normal;
    font-weight: normal;
    font-size: 14px;
    line-height: 146.7%;
-   
+
    color: rgba(255, 255, 255, 0.6);
   }
 
